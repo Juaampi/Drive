@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="294dp"
+        android:layout_height="79dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="51dp"
+        app:srcCompat="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/input_user"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Ingresar Usuario"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_user"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Ingresar Contraseña"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/btn_ingresar"
+        android:layout_width="167dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/input_password"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="11dp"
+        android:background="@android:color/holo_orange_dark"
+        android:textColor="@android:color/white"
+        android:text="INGRESAR" />
+
+    <TextView
+        android:id="@+id/tx_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_ingresar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="¿No tienes cuenta en drive? " />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="204dp"
+        android:layout_height="55dp"
+        android:layout_below="@+id/tx_4"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        app:srcCompat="@drawable/fb" />
+
+
+</RelativeLayout>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_orange_dark"
+    android:visibility="visible"
+    tools:context=".InitActivity">
+
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="91dp"
+        app:srcCompat="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/tx_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:gravity="center"
+        android:text="Decinos qué queres. Nosotros lo buscamos y te lo entregamos en minutos. Drive va por vos. Te lo llevamos en minutos. Descargá la app. Pedí lo que quieras."
+        android:textColor="@android:color/white"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tx_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tx_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:text="Ya tenés tu cuenta en drive? "
+        android:textAppearance="@android:style/TextAppearance.Material.Widget.EditText" />
+
+    <Button
+        android:id="@+id/btn_ingreso"
+        android:layout_width="186dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tx_2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/white"
+        android:text="INGRESA"
+        android:textColor="@android:color/holo_orange_dark" />
+
+    <Button
+        android:id="@+id/btn_registro"
+        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_ingreso"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="¿Aún no la tienes? Registrate!" />
+
+    <TextView
+        android:id="@+id/tx_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_registro"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="9dp"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        android:text="¿No querés registrarte? " />
+
+    <ImageView
+        android:id="@+id/fb"
+        android:layout_width="175dp"
+        android:layout_height="36dp"
+        android:layout_below="@+id/tx_3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="22dp"
+        app:srcCompat="@drawable/fb" />
+
+
+</RelativeLayout>
