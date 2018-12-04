@@ -1,6 +1,7 @@
 package ar.com.drive.www.drive;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.Serializable;
 
 public class LoginActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -43,7 +46,6 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
             }
         });
 
-
     }
 
     private void cargarWebService() {
@@ -64,20 +66,18 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
 
     @Override
     public void onResponse(JSONObject response) {
-
-        Toast.makeText(getApplicationContext(), "Se encontro usuario"+response, Toast.LENGTH_SHORT).show();
         JSONArray json = response.optJSONArray("usuario");
         JSONObject jsonObject = null;
-
+        Usuario usuario = new Usuario();
 
         try {
             jsonObject = json.getJSONObject(0);
             Intent i = new Intent(LoginActivity.this, ComerciosActivity.class);
-            i.putExtra("nombre", jsonObject.optString("name"));
-            i.putExtra("apellido", jsonObject.optString("lastname"));
-            i.putExtra("telefono", jsonObject.optString("phone"));
-            i.putExtra("direccion", jsonObject.optString("address"));
-            i.putExtra("email", jsonObject.optString("usuario"));
+            usuario.setNombre(jsonObject.optString("name"));
+            usuario.setApellido(jsonObject.optString("lastname"));
+            usuario.setTelefono(jsonObject.optString("phone"));
+            usuario.setId(jsonObject.optInt("id"));
+            i.putExtra("usuario", usuario);
             startActivity(i);
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,7 +1,10 @@
 package ar.com.drive.www.drive;
 
-public class Usuario {
+import java.io.Serializable;
 
+public class Usuario implements Serializable {
+
+    private int id;
     private String nombre;
     private String apellido;
     private String telefono;
@@ -13,6 +16,14 @@ public class Usuario {
     }
 
     public Usuario() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {

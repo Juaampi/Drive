@@ -8,13 +8,15 @@ import android.widget.Button;
 
 public class InitActivity extends AppCompatActivity {
 
-    Button btn_ingreso;
+    Button btn_ingreso, btn_registro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_init);
 
         btn_ingreso = (Button) findViewById(R.id.btn_ingreso);
+        btn_registro = (Button) findViewById(R.id.btn_registro);
 
         btn_ingreso.setOnClickListener(new View.OnClickListener() {
             @Override

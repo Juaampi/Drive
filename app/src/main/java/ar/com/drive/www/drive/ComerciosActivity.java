@@ -1,34 +1,46 @@
 package ar.com.drive.www.drive;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
-public class ComerciosActivity extends AppCompatActivity {
+import org.w3c.dom.Text;
 
-Toolbar myToolbar;
+import java.io.Serializable;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+public class ComerciosActivity extends AppCompatActivity implements Serializable {
+
+    Button btn_comida, btn_bebida, btn_mercado, btn_tienda, btn_entregas, btn_personalizado;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comercios);
-        myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        Usuario usuario = new Usuario();
-        usuario.setNombre(getIntent().getStringExtra("nombre"));
-        usuario.setApellido(getIntent().getStringExtra("apellido"));
-        usuario.setDireccion(getIntent().getStringExtra("direccion"));
-        usuario.setEmail(getIntent().getStringExtra("email"));
-        usuario.setTelefono(getIntent().getStringExtra("telefono"));
+        btn_comida = (Button) findViewById(R.id.btn_comida);
+        btn_bebida = (Button) findViewById(R.id.btn_bebida);
+        btn_mercado = (Button) findViewById(R.id.btn_mercado);
+        btn_tienda = (Button) findViewById(R.id.btn_tienda);
+        btn_entregas = (Button) findViewById(R.id.btn_entregas);
+        btn_personalizado = (Button) findViewById(R.id.btn_personalizado);
+        final Usuario usuario = (Usuario) getIntent().getSerializableExtra("usuario");
 
-
-
+        btn_comida.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ComerciosActivity.this, ComidasActivity.class);
+                i.putExtra("usuario", usuario);
+                startActivity(i);
+            }
+        });
 
     }
-
 
 }
 
