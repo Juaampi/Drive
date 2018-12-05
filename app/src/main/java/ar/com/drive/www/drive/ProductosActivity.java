@@ -69,7 +69,7 @@ public class ProductosActivity extends AppCompatActivity implements Response.Lis
                 jsonObject = json.getJSONObject(i);
                 producto.setId(jsonObject.optInt("id"));
                 producto.setNombre(jsonObject.optString("nombre"));
-                //producto.setPrecio((float) jsonObject.optDouble("precio"));
+                producto.setPrecio(jsonObject.optDouble("precio"));
                 producto.setDescripcion(jsonObject.optString("descripcion"));
                 producto.setUrl_img(jsonObject.optString("url"));
                 producto.setIdComercio(jsonObject.optInt("idComercio"));

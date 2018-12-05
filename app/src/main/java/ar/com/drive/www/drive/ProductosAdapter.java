@@ -71,7 +71,7 @@ public class ProductosAdapter extends BaseAdapter implements Response.Listener<J
         final Producto selectedProducto = productos.get(position);
         nombre.setText(selectedProducto.getNombre());
         descripcion.setText(selectedProducto.getDescripcion());
-        //precio.setText((int) selectedProducto.getPrecio());
+        precio.setText("$"+String.valueOf(selectedProducto.getPrecio())+"0");
         Picasso.get().load(selectedProducto.getUrl_img()).into(img);
         request = Volley.newRequestQueue(context);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -103,13 +103,15 @@ public class ProductosAdapter extends BaseAdapter implements Response.Listener<J
         JSONObject jsonObject = null;
 
         try {
-                final prePedido pedido = new prePedido();
+                prePedido pedido = new prePedido();
                 jsonObject = json.getJSONObject(0);
-                pedido.setIdProducto(jsonObject.optInt("id"));
+                pedido.setId(jsonObject.optInt("id"));
+                pedido.setIdProducto(jsonObject.optInt("idProducto"));
                 pedido.setIdRestaurant(jsonObject.optInt("idComercio"));
                 pedido.setIdCliente(jsonObject.optInt("idCliente"));
-                Intent i = new Intent(context, prePedido.class);
+                Intent i = new Intent(context, prePedidoActivity.class);
                 i.putExtra("prePedido", pedido);
+                i.putExtra("usuario", usuario);
                 context.startActivity(i);
 
         } catch (JSONException e) {

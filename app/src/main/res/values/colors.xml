@@ -3,5 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="tuGlovo">#4a4a4a</color>
+    <color name="glovoDescripcion">#7e7e7e</color>
+    <color name="glovoPrecio">#121212</color>
     <color name="gray">#b1b1b1</color>
 </resources>

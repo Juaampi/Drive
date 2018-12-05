@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,6 +26,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ComidasActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener { 
+    TextView total;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     private ArrayList<Comercio> Comercios = new ArrayList<>();
@@ -39,6 +41,7 @@ public class ComidasActivity extends AppCompatActivity implements Response.Liste
         request = Volley.newRequestQueue(getApplicationContext());
         listViewComida = (ListView) findViewById(R.id.list_comida);
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+        total = (TextView) findViewById(R.id.total);
         cargarWebService();
     }
 

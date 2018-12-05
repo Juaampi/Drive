@@ -8,6 +8,27 @@ public class prePedido implements Serializable {
     private int idCliente;
     private int idRestaurant;
     private int idProducto;
+    private String nombre_producto;
+    private double precio;
+
+    public prePedido() {
+    }
+
+    public String getNombre_producto() {
+        return nombre_producto;
+    }
+
+    public void setNombre_producto(String nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
     public int getId() {
         return id;
