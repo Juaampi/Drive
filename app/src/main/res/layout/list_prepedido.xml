@@ -14,7 +14,6 @@
         >
 
 
-
     <TextView
         android:id="@+id/nombre_producto"
         android:layout_width="wrap_content"
@@ -48,10 +47,12 @@
         >
 
        <ImageButton
+           android:id="@+id/addPedido"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:src="@drawable/add"
            android:background="@android:color/white"
+
         />
 
         <TextView
@@ -61,17 +62,38 @@
             android:layout_below="@id/linear"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="8dp"
             android:text="Hamburguesa completa con J/Q/H/L/T"
-            android:textColor="@color/glovoDescripcion" />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"
-            android:background="@android:color/white"/>
-
+            android:textColor="@color/glovoDescripcion"
+            android:layout_marginRight="60dp"/>
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/deletePedido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:background="@android:color/white"
+        android:src="@drawable/delete" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="68dp"
+        android:background="?android:attr/listDivider"
+        android:visibility="visible"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        tools:background="@color/gray" />
 
 </RelativeLayout>

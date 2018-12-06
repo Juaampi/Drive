@@ -1,7 +1,12 @@
 package ar.com.drive.www.drive;
 
+import android.content.Intent;
+import android.graphics.Typeface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +27,8 @@ import java.util.ArrayList;
 
 public class prePedidoActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
+    private Typeface script;
+    Button btn_confirm, btn_cancel;
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     Producto producto = new Producto();
@@ -30,7 +37,7 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
     ListView lista;
     prePedido pedido = new prePedido();
     Usuario usuario = new Usuario();
-    TextView total;
+    TextView total, tuDrive;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +46,22 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         request = Volley.newRequestQueue(getApplicationContext());
         lista = (ListView) findViewById(R.id.listprePedido);
-        cargarListaPrepedidos(pedido.getIdCliente());
         total = (TextView) findViewById(R.id.total);
+        cargarListaPrepedidos(pedido.getIdCliente());
+        btn_confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+        });
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
     }
 
     private void cargarListaPrepedidos(int idCliente) {
@@ -53,6 +74,8 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getApplicationContext(), "Tenes que seleccionar algun producto!", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(prePedidoActivity.this, ComidasActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -70,12 +93,16 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
                 jsonObject = json.getJSONObject(i);
                 PrePedido.setNombre_producto(jsonObject.optString("nombre"));
                 PrePedido.setPrecio(jsonObject.optDouble("precio"));
+                PrePedido.setIdCliente(jsonObject.optInt("idCliente"));
+                PrePedido.setIdProducto(jsonObject.optInt("idProducto"));
+                PrePedido.setIdRestaurant(jsonObject.optInt("idRestaurant"));
+                PrePedido.setId(jsonObject.optInt("idPrePedido"));
                 precio = jsonObject.optDouble("precio")+precio;
                 pedidos.add(PrePedido);
             }
             adapter = new PrePedidoAdapter(this, pedidos, usuario);
             lista.setAdapter(adapter);
-            total.setText("El total es: $"+String.valueOf(precio));
+            total.setText("El total es: $"+String.valueOf(precio)+'0');
 
         } catch (JSONException e) {
             e.printStackTrace();
