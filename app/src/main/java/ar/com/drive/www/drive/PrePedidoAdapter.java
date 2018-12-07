@@ -66,9 +66,11 @@ public class PrePedidoAdapter extends BaseAdapter implements Response.Listener<J
         TextView nombre = (TextView) itemView.findViewById(R.id.nombre_producto);
         TextView precio = (TextView) itemView.findViewById(R.id.precio_producto);
         TextView total = (TextView) itemView.findViewById(R.id.total);
+        TextView cantidad = (TextView) itemView.findViewById(R.id.cant);
         final prePedido selectedPrePedido = pedidos.get(position);
         nombre.setText(selectedPrePedido.getNombre_producto());
         precio.setText("$"+String.valueOf(selectedPrePedido.getPrecio())+"0");
+        cantidad.setText(String.valueOf(selectedPrePedido.getCantidad()));
         request = Volley.newRequestQueue(context);
         btn_add.setOnClickListener(new View.OnClickListener() {
             @Override

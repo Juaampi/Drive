@@ -10,6 +10,7 @@ public class prePedido implements Serializable {
     private int idProducto;
     private String nombre_producto;
     private double precio;
+    private int cantidad;
 
     public prePedido() {
     }
@@ -60,5 +61,13 @@ public class prePedido implements Serializable {
 
     public void setIdProducto(int idProducto) {
         this.idProducto = idProducto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }

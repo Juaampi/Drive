@@ -30,7 +30,8 @@
         <activity android:name=".McDonals" />
         <activity android:name=".BurgerKing" />
         <activity android:name=".ProductosActivity" />
-        <activity android:name=".prePedidoActivity"></activity>
+        <activity android:name=".prePedidoActivity" />
+        <activity android:name=".ConfirmActivity"></activity>
     </application>
 
 </manifest>
