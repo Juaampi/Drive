@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ar.com.drive.www.drive">
 
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    ...
+    <!-- Needed only if your app targets Android 5.0 (API level 21) or higher. -->
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -26,12 +34,17 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".ComerciosActivity" />
         <activity android:name=".ComidasActivity" />
-        <activity android:name=".PruebaActivity" />
-        <activity android:name=".McDonals" />
-        <activity android:name=".BurgerKing" />
         <activity android:name=".ProductosActivity" />
         <activity android:name=".prePedidoActivity" />
-        <activity android:name=".ConfirmActivity"></activity>
+        <activity android:name=".ConfirmActivity">
+
+        </activity>
+
+
     </application>
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="AIzaSyB7Wd1ecPr_b37x_eKczYuRP-1n21Fa3-A"/>
 
 </manifest>

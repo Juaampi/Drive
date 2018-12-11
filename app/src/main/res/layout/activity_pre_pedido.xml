@@ -129,6 +129,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/confirmar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
@@ -137,6 +138,7 @@
                     android:text="Confirmar"/>
 
                 <Button
+                    android:id="@+id/cancelar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@android:color/holo_orange_dark"
