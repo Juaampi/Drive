@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 public class prePedidoActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener {
 
+    double precio = 0;
     private Typeface script;
     FloatingActionButton btn_add;
     Button btn_confirm, btn_cancel;
@@ -45,7 +46,7 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_pedido);
-        pedido = (prePedido) getIntent().getSerializableExtra("prePedido");
+        //pedido = (prePedido) getIntent().getSerializableExtra("prePedido");
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
         request = Volley.newRequestQueue(getApplicationContext());
         lista = (ListView) findViewById(R.id.listprePedido);
@@ -70,7 +71,34 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(prePedidoActivity.this, ConfirmActivity.class);
+                i.putExtra("pedidos", pedidos);
+                i.putExtra("usuario", usuario);
+                i.putExtra("total", precio);
                 startActivity(i);
+            }
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                request = Volley.newRequestQueue(getApplicationContext());
+                String url = "http://192.168.0.69/webservice/deletePedido.php?idUser="+usuario.getId();
+                jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Intent i = new Intent (prePedidoActivity.this, ComerciosActivity.class);
+                        i.putExtra("usuario", usuario);
+                        startActivity(i);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(),"NO SE PUEDE ELIMINAR EL PEDIDO", Toast.LENGTH_SHORT);
+                    }
+                });
+
+                request.add(jsonObjectRequest);
+
             }
         });
     }
@@ -94,24 +122,20 @@ public class prePedidoActivity extends AppCompatActivity implements Response.Lis
 
         JSONArray json = response.optJSONArray("prePedido");
         JSONObject jsonObject = null;
-        double precio = 0;
         try {
             int i = 0;
             for(i=0; i<json.length();i++){
-
                 prePedido PrePedido = new prePedido();
                 jsonObject = json.getJSONObject(i);
-
                 PrePedido.setNombre_producto(jsonObject.optString("nombre"));
                 PrePedido.setPrecio(jsonObject.optDouble("precio"));
                 PrePedido.setIdCliente(jsonObject.optInt("idCliente"));
                 PrePedido.setIdProducto(jsonObject.optInt("idProducto"));
                 PrePedido.setIdRestaurant(jsonObject.optInt("idRestaurant"));
                 PrePedido.setId(jsonObject.optInt("idPrePedido"));
+                precio = jsonObject.optDouble("precio")+precio;
                 pedidos.add(PrePedido);
-
             }
-
             adapter = new PrePedidoAdapter(this, pedidos, usuario);
             lista.setAdapter(adapter);
             total.setText("El total es: $"+String.valueOf(precio)+'0');

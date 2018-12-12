@@ -1,5 +1,6 @@
 package ar.com.drive.www.drive;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,19 +22,23 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import java.util.ArrayList;
+
 public class ConfirmActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
+
+
+    Button confirm, cancel;
+    TextView totalPedido, totalTotal;
+    ArrayList<prePedido> pedidos = new ArrayList<>();
     private static final String LOG_TAG = "ConfirmActivity";
     private static final int GOOGLE_API_CLIENT_ID = 0;
     private AutoCompleteTextView mAutocompleteTextView;
     private TextView mNameTextView;
-    private TextView mAddressTextView;
-    private TextView mIdTextView;
-    private TextView mPhoneTextView;
-    private TextView mWebTextView;
-    private TextView mAttTextView;
     private GoogleApiClient mGoogleApiClient;
     private PlaceArrayAdapter mPlaceArrayAdapter;
+    prePedido pedido = new prePedido();
+    Usuario usuario = new Usuario();
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
             new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
 
@@ -41,7 +47,16 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
-
+        confirm = (Button) findViewById(R.id.confirm);
+        cancel = (Button) findViewById(R.id.cancel);
+        pedidos = (ArrayList<prePedido>) getIntent().getSerializableExtra("pedidos");
+        totalPedido = (TextView) findViewById(R.id.totalPedido);
+        totalTotal = (TextView) findViewById(R.id.totalTotal);
+        totalPedido.setText("$"+String.valueOf(getIntent().getDoubleExtra("total", 0))+"0");
+        pedido = (prePedido) getIntent().getSerializableExtra("prePedido");
+        usuario = (Usuario) getIntent().getSerializableExtra("usuario");
+        double total = (double) getIntent().getDoubleExtra("total", 0)+35;
+        totalTotal.setText("$"+String.valueOf(total)+"0");
         mGoogleApiClient = new GoogleApiClient.Builder(ConfirmActivity.this)
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
@@ -51,15 +66,27 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
                 .autoCompleteTextView);
         mAutocompleteTextView.setThreshold(3);
         mNameTextView = (TextView) findViewById(R.id.name);
-        mAddressTextView = (TextView) findViewById(R.id.address);
-        mIdTextView = (TextView) findViewById(R.id.place_id);
-        mPhoneTextView = (TextView) findViewById(R.id.phone);
-        mWebTextView = (TextView) findViewById(R.id.web);
-        mAttTextView = (TextView) findViewById(R.id.att);
         mAutocompleteTextView.setOnItemClickListener(mAutocompleteClickListener);
         mPlaceArrayAdapter = new PlaceArrayAdapter(this, android.R.layout.simple_list_item_1,
                 BOUNDS_MOUNTAIN_VIEW, null);
         mAutocompleteTextView.setAdapter(mPlaceArrayAdapter);
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ConfirmActivity.this, prePedidoActivity.class);
+                i.putExtra("usuario", usuario);
+                i.putExtra("prePedido", pedido);
+                startActivity(i);
+            }
+        });
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
@@ -90,12 +117,8 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
             CharSequence attributions = places.getAttributions();
 
             mNameTextView.setText(Html.fromHtml(place.getName() + ""));
-            mAddressTextView.setText(Html.fromHtml(place.getAddress() + ""));
-            mIdTextView.setText(Html.fromHtml(place.getId() + ""));
-            mPhoneTextView.setText(Html.fromHtml(place.getPhoneNumber() + ""));
-            mWebTextView.setText(place.getWebsiteUri() + "");
             if (attributions != null) {
-                mAttTextView.setText(Html.fromHtml(attributions.toString()));
+
             }
         }
     };
