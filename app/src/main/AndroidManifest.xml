@@ -36,16 +36,13 @@
         <activity android:name=".ComidasActivity" />
         <activity android:name=".ProductosActivity" />
         <activity android:name=".prePedidoActivity" />
-        <activity android:name=".ConfirmActivity">
-
-        </activity>
+        <activity android:name=".ConfirmActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB7Wd1ecPr_b37x_eKczYuRP-1n21Fa3-A"/>
+            android:value="AIzaSyB7Wd1ecPr_b37x_eKczYuRP-1n21Fa3-A" />
 
+        <activity android:name=".ProfileActivity"></activity>
     </application>
-
-
 
 </manifest>

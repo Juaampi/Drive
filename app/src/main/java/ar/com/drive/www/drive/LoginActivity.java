@@ -1,9 +1,8 @@
 package ar.com.drive.www.drive;
 
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,8 +18,6 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 
 public class LoginActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener{
 
@@ -72,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements Response.Listene
 
         try {
             jsonObject = json.getJSONObject(0);
-            Intent i = new Intent(LoginActivity.this, ComerciosActivity.class);
+            Intent i = new Intent(LoginActivity.this, ProfileActivity.class);
             usuario.setNombre(jsonObject.optString("name"));
             usuario.setApellido(jsonObject.optString("lastname"));
             usuario.setTelefono(jsonObject.optString("phone"));

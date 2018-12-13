@@ -12,6 +12,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -22,12 +28,18 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
-public class ConfirmActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class ConfirmActivity extends AppCompatActivity implements Response.Listener<JSONObject>, Response.ErrorListener, GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
 
 
-
+    RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
     Button confirm, cancel;
     TextView totalPedido, totalTotal;
     ArrayList<prePedido> pedidos = new ArrayList<>();
@@ -55,8 +67,9 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
         totalPedido.setText("$"+String.valueOf(getIntent().getDoubleExtra("total", 0))+"0");
         pedido = (prePedido) getIntent().getSerializableExtra("prePedido");
         usuario = (Usuario) getIntent().getSerializableExtra("usuario");
-        double total = (double) getIntent().getDoubleExtra("total", 0)+35;
+        final double total = (double) getIntent().getDoubleExtra("total", 0)+35;
         totalTotal.setText("$"+String.valueOf(total)+"0");
+        request = Volley.newRequestQueue(getApplicationContext());
         mGoogleApiClient = new GoogleApiClient.Builder(ConfirmActivity.this)
                 .addApi(Places.GEO_DATA_API)
                 .enableAutoManage(this, GOOGLE_API_CLIENT_ID, this)
@@ -75,6 +88,8 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
             @Override
             public void onClick(View v) {
 
+                cargarPedido(usuario, mNameTextView.getText().toString(), total);
+
             }
         });
 
@@ -87,6 +102,16 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
                 startActivity(i);
             }
         });
+    }
+
+    private void cargarPedido(Usuario usuario, String direccion, double total) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        String fecha = dateFormat.format(date);
+        String url = "http://192.168.0.69/webservice/pedido.php?idCliente="+usuario.getId()+"&direccion="+direccion+"&total="+total+"&fecha="+fecha;
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this,this);
+        request.add(jsonObjectRequest);
+
     }
 
     private AdapterView.OnItemClickListener mAutocompleteClickListener
@@ -145,5 +170,15 @@ public class ConfirmActivity extends AppCompatActivity implements GoogleApiClien
     public void onConnectionSuspended(int i) {
         mPlaceArrayAdapter.setGoogleApiClient(null);
         Log.e(LOG_TAG, "Google Places API connection suspended.");
+    }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
     }
 }
